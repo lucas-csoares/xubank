@@ -1,8 +1,8 @@
 package entities;
 
-import interfaces.SaqueConta;
+import interfaces.AccountTransaction;
 
-public class Investimento extends Conta {
+public class Investimento extends Conta implements AccountTransaction {
 
     private Double rendimento;
 
@@ -10,8 +10,8 @@ public class Investimento extends Conta {
 
     private final  Double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
 
-    public Investimento(Cliente titular) {
-        super(titular);
+    public Investimento(Cliente titular, Double saldo) {
+        super(titular, saldo);
         rendimento = 0.0;
     }
 
@@ -24,15 +24,26 @@ public class Investimento extends Conta {
     }
 
     public Double getTAXA_SOBRE_RENDIMENTO_NO_SAQUE() {
+
         return TAXA_SOBRE_RENDIMENTO_NO_SAQUE;
     }
 
     public Double getIMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE() {
+
         return IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE;
     }
 
-    @Override
-    public void sacar(double valor) {
+
+    public void sacar(double valor) throws IllegalArgumentException {
+
+    }
+
+    public void transferir(Double valor, Conta conta) throws IllegalArgumentException {
+
+    }
+
+
+    public void updateBalanceByDate() {
 
     }
 }

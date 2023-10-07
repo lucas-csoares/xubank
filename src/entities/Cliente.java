@@ -63,14 +63,17 @@ public class Cliente {
     }
 
     public void setContas(List<Conta> contas) {
+
         this.contas = contas;
     }
 
     public void addConta(Conta conta) {
+
         this.getContas().add(conta);
     }
 
     public void removeConta(Conta conta) {
+
         this.getContas().remove(conta);
     }
 

@@ -1,16 +1,16 @@
 package entities;
 
-import interfaces.SaqueConta;
+import interfaces.AccountTransaction;
 
-public class RendaFixa extends Conta{
+public class RendaFixa extends Conta implements AccountTransaction {
 
     private final Double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
 
     private Double rendimento;
 
-    public RendaFixa(Cliente titular, Double rendimento) {
-        super(titular);
-        this.rendimento = rendimento;
+    public RendaFixa(Cliente titular, Double saldo) {
+        super(titular, saldo);
+        //this.rendimento = rendimento;
     }
 
 
@@ -26,8 +26,17 @@ public class RendaFixa extends Conta{
         this.rendimento = rendimento;
     }
 
-    @Override
-    public void sacar(double valor) {
+
+    public void sacar(double valor) throws IllegalArgumentException {
+
+    }
+
+    public void transferir(Double valor, Conta conta) throws IllegalArgumentException {
+
+    }
+
+
+    public void updateBalanceByDate() {
 
     }
 
