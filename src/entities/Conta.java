@@ -20,6 +20,10 @@ public class Conta {
         this.titular = titular;
     }
 
+    public void sacar(double valor) {
+
+    }
+
 
 
     //todo: getSaltdo() é um método válido para consutar o saldo

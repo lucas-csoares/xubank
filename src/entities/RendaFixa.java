@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.SaqueConta;
 
-public class RendaFixa extends Conta implements SaqueConta {
+public class RendaFixa extends Conta{
 
     private final Double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
 
@@ -27,8 +27,8 @@ public class RendaFixa extends Conta implements SaqueConta {
     }
 
     @Override
-    public double sacar(double valor) {
-        return 0;
+    public void sacar(double valor) {
+
     }
 
 

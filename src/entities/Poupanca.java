@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.SaqueConta;
 
-public class Poupanca extends Conta implements SaqueConta {
+public class Poupanca extends Conta {
 
     private final double TAXA_RENDIMENTO = 0.0005;
 
@@ -11,7 +11,7 @@ public class Poupanca extends Conta implements SaqueConta {
     }
 
     @Override
-    public double sacar(double valor) {
-        return 0;
+    public void sacar(double valor) {
+
     }
 }

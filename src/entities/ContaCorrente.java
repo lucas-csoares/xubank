@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.SaqueConta;
 
-class ContaCorrente extends Conta implements SaqueConta {
+class ContaCorrente extends Conta {
 
 
     private final Double TAXA_MENSAL = 20.00;
@@ -13,8 +13,8 @@ class ContaCorrente extends Conta implements SaqueConta {
     }
 
     @Override
-    public double sacar(double valor) {
-        return 0;
+    public void sacar(double valor) {
+
     }
 
     public Double getTAXA_MENSAL() {

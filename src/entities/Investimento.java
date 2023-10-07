@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.SaqueConta;
 
-public class Investimento extends Conta implements SaqueConta {
+public class Investimento extends Conta {
 
     private Double rendimento;
 
@@ -32,7 +32,7 @@ public class Investimento extends Conta implements SaqueConta {
     }
 
     @Override
-    public double sacar(double valor) {
-        return 0;
+    public void sacar(double valor) {
+
     }
 }
