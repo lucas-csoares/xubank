@@ -20,8 +20,11 @@ public class Conta {
         this.titular = titular;
     }
 
-    public void sacar(double valor) {
-
+    public void sacar(double valor) throws Exception{
+        if(valor <= this.getSaldo()) {
+            this.saldo -= valor;
+        } else
+            throw new Exception("Saldo insuficiente para realizar o saque");
     }
 
 
@@ -48,6 +51,7 @@ public class Conta {
 
     //todo: finalizar
     public double depositar(double valor){
+
         return saldo += valor;
     }
 
