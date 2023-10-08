@@ -2,7 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 
-public class Conta {
+public abstract class Conta {
 
     protected Cliente titular;
     protected Double saldo;
