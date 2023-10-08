@@ -1,8 +1,8 @@
 package entities;
 
-import interfaces.AccountTransaction;
+import interfaces.OperacoesConta;
 
-public class Investimento extends Conta implements AccountTransaction {
+public final class Investimento extends Conta implements OperacoesConta {
 
     private Double rendimento;
 

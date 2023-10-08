@@ -1,8 +1,8 @@
 package entities;
 
-import interfaces.AccountTransaction;
+import interfaces.OperacoesConta;
 
-public class RendaFixa extends Conta implements AccountTransaction {
+public final class RendaFixa extends Conta implements OperacoesConta {
 
     private final Double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
 

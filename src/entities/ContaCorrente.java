@@ -1,12 +1,12 @@
 package entities;
 
 
-import interfaces.AccountTransaction;
+import interfaces.OperacoesConta;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-class ContaCorrente extends Conta implements AccountTransaction {
+public final class ContaCorrente extends Conta implements OperacoesConta {
 
 
     private final Double TAXA_MENSAL = 20.00;

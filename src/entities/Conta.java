@@ -25,6 +25,11 @@ public class Conta {
     }
 
 
+    //todo: finalizar, obs.:  últimos 30 dias
+//    public double consultarExtrato(){
+//
+//    }
+
 
     public void setTitular(Cliente titular) {
 
@@ -48,12 +53,6 @@ public class Conta {
 
         return titular;
     }
-
-
-    //todo: finalizar, obs.:  últimos 30 dias
-//    public double consultarExtrato(){
-//
-//    }
 
 
 }

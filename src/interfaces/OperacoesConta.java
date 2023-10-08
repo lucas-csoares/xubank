@@ -2,7 +2,7 @@ package interfaces;
 
 import entities.Conta;
 
-public interface AccountTransaction {
+public interface OperacoesConta {
     void sacar(double valor) throws IllegalArgumentException;
     void transferir(Double valor, Conta conta) throws IllegalArgumentException;
 

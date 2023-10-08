@@ -1,10 +1,10 @@
 package entities;
 
-import interfaces.AccountTransaction;
+import interfaces.OperacoesConta;
 
 import java.time.LocalDate;
 
-public class Poupanca extends Conta implements AccountTransaction {
+public final class Poupanca extends Conta implements OperacoesConta {
 
     private final double TAXA_RENDIMENTO = 0.0005;
 
