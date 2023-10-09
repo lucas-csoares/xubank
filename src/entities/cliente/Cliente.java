@@ -1,6 +1,8 @@
 package entities.cliente;
 
 import entities.conta.Conta;
+import entities.conta.Transacao;
+import enums.TransacaoCategoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Cliente {
     private String cpf;
     private String senha;
     private List<Conta> contas;
+    private List<Transacao> transacoes;
 
     public Cliente(String nome, String cpf, String senha) {
         this.nome = nome;
@@ -26,11 +29,13 @@ public class Cliente {
         this.senha = senha;
         this.id = PROX_ID++;
         contas = new ArrayList<>();
+        transacoes = new ArrayList<>();
     }
 
     public Cliente() {
         this.nome = this.cpf = this.senha = "";
         this.id = PROX_ID++;
+        transacoes = new ArrayList<>();
     }
 
     public String getNome() {
@@ -73,6 +78,18 @@ public class Cliente {
         this.getContas().remove(conta);
     }
 
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
+
+    public void addTransacao(Transacao transacao) {
+        this.getTransacoes().add(transacao);
+    }
+
     public void imprimir() {
         System.out.println("-------------------------");
         System.out.printf("Id      : %1s\n", this.id);
@@ -109,6 +126,11 @@ public class Cliente {
                 .filter(conta -> conta.getId() == id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void consultarExtrato() {
+        System.out.println("Extrato da conta:");
+        this.transacoes.forEach(Transacao::imprimir);
     }
 
 }

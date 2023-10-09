@@ -1,6 +1,7 @@
 package entities.conta;
 
 import entities.cliente.Cliente;
+import enums.TransacaoCategoria;
 
 import java.time.LocalDate;
 
@@ -53,10 +54,12 @@ public class Conta {
         System.out.printf("Registro: %1s\n", this.dataRegistro);
     }
 
-    public void depositar(double valor) throws IllegalArgumentException {
+    public void depositar(double valor) {
         if (valor < 0)
             throw new IllegalArgumentException("Valor de depósito inválido");
         saldo += valor;
+
+        cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor));
     }
 
 }

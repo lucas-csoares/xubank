@@ -2,6 +2,7 @@ package entities.conta;
 
 
 import entities.cliente.Cliente;
+import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
 
 import java.time.LocalDate;
@@ -14,8 +15,8 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     private Double saqueEspecial = 200.00;
     private LocalDate ultimoDesconto;
 
-    public ContaCorrente(Cliente titular, Double saldo) throws Exception {
-        super(titular, saldo);
+    public ContaCorrente(Cliente cliente, Double saldo) throws Exception {
+        super(cliente, saldo);
         this.ultimoDesconto = dataRegistro;
     }
 
@@ -49,6 +50,8 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
             saldo = 0.0;
         } else
             saldo -= valor;
+
+        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor));
     }
 
     public void transferir(Double valor, Conta conta) throws Exception {
@@ -60,6 +63,8 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
 
         this.saldo -= valor;
         conta.depositar(valor);
+
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta));
     }
 
     public void atualizarSaldo() {
