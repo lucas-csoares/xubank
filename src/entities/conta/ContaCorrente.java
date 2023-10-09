@@ -20,12 +20,6 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
         this.ultimoDesconto = dataRegistro;
     }
 
-    @Override
-    public Double getSaldo() {
-        atualizarSaldo();
-        return saldo;
-    }
-
     public void setSaqueEspecial(Double saqueEspecial) {
         this.saqueEspecial = saqueEspecial;
     }

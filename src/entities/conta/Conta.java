@@ -58,7 +58,6 @@ public class Conta {
         if (valor < 0)
             throw new IllegalArgumentException("Valor de depósito inválido");
         saldo += valor;
-
         cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor));
     }
 

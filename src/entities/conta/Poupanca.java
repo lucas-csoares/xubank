@@ -1,68 +1,72 @@
 package entities.conta;
 
 import entities.cliente.Cliente;
+import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public final class Poupanca extends Conta implements OperacoesConta {
 
-    private final double TAXA_RENDIMENTO = 0.0005;
+    private final double TAXA_RENDIMENTO = 0.005;
 
     private LocalDate ultimoRendimento;
 
     public Poupanca(Cliente titular, Double saldo) {
         super(titular, saldo);
         this.saldo = saldo;
-        this.ultimoRendimento = proximoDia5DoMesAtual();
+        this.ultimoRendimento = dataRegistro;
     }
 
-    private LocalDate proximoDia5DoMesAtual() {
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate proximoDia5 = LocalDate.of(dataAtual.getYear(), dataAtual.getMonthValue(), 5);
+    public void sacar(double valor) throws Exception {
 
-        if (dataAtual.getDayOfMonth() >= 5) {
-            proximoDia5 = proximoDia5.plusMonths(1);
-        }
+        atualizarSaldo();
 
-        return proximoDia5;
+        if (valor > saldo)
+            throw new Exception("Saque de " + valor + " não permitido. Saldo insuficiente.");
+
+        saldo -= valor;
+        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor));
     }
 
+    public void transferir(Double valor, Conta conta) throws Exception {
+
+        atualizarSaldo();
+
+        if (valor > saldo)
+            throw new Exception("Transferencia de " + valor + " não permitido. Saldo insuficiente.");
+
+        this.saldo -= valor;
+        conta.depositar(valor);
+
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta));
+    }
 
     public void atualizarSaldo() {
+        aplicarRendaFixa();
+    }
+
+    private void aplicarRendaFixa() {
+
         LocalDate dataAtual = LocalDate.now();
-        LocalDate ultimoRendimentoCopy = ultimoRendimento;
+        LocalDate proximaDataRendimento = obterProximaDataRendimento(ultimoRendimento);
 
-        while (ultimoRendimentoCopy.isBefore(dataAtual)) {
-            ultimoRendimentoCopy = ultimoRendimentoCopy.plusMonths(1);
-
-
-            if (ultimoRendimentoCopy.getDayOfMonth() == 5) {
-                double rendimento = this.getSaldo() * TAXA_RENDIMENTO;
-                this.depositar(rendimento);
-            }
+        if (dataAtual.isAfter(proximaDataRendimento)) {
+            int mesesRendimento = calcularDiferencaMeses(proximaDataRendimento, dataAtual);
+            double rendimento = mesesRendimento * TAXA_RENDIMENTO;
+            this.depositar(saldo * mesesRendimento * TAXA_RENDIMENTO);
         }
+    }
 
-        ultimoRendimento = proximoDia5DoMesAtual();
+    /*todo: conferir se essa funcao esta funcionando corretamente*/
+    private int calcularDiferencaMeses(LocalDate dataInicial, LocalDate dataFinal) {
+        return Period.between(dataInicial, dataFinal).getMonths() + 1;
     }
 
 
-    public void sacar(double valor) throws IllegalArgumentException {
-        atualizarSaldo();
-        if (valor <= this.getSaldo()) {
-            saldo -= valor;
-        } else
-            throw new IllegalArgumentException("O saldo é insuficente para o saque");
-
-    }
-
-    public void transferir(Double valor, Conta conta) throws IllegalArgumentException {
-        atualizarSaldo();
-        if (valor <= this.getSaldo()) {
-            this.saldo -= valor;
-            conta.depositar(valor);
-        } else
-            throw new IllegalArgumentException("Saldo insuficiente para realizar a transferência");
+    public LocalDate obterProximaDataRendimento(LocalDate data) {
+        return LocalDate.of(data.getYear(), data.getMonth(), 5).plusMonths(1);
     }
 
 
