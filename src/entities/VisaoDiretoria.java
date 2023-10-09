@@ -1,5 +1,7 @@
 package entities;
 
+import entities.cliente.Cliente;
+
 import java.util.ArrayList;
 import java.util.List;
 

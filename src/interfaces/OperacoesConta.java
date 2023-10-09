@@ -1,10 +1,10 @@
 package interfaces;
 
-import entities.Conta;
+import entities.conta.Conta;
 
 public interface OperacoesConta {
-    void sacar(double valor) throws IllegalArgumentException;
-    void transferir(Double valor, Conta conta) throws IllegalArgumentException;
+    void sacar(double valor) throws Exception;
+    void transferir(Double valor, Conta conta) throws Exception;
 
-    void updateBalanceByDate();
+    void atualizarSaldo();
 }
