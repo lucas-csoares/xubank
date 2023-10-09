@@ -1,7 +1,14 @@
-package entities;
+package entities.cliente;
 
 public class ClienteGold extends Cliente{
 
+    public ClienteGold(String nome, String cpf, String senha) {
+        super(nome, cpf, senha);
+    }
+
+    public ClienteGold() {
+        super();
+    }
 
     static {
         TAXA_MENSAL = 10;

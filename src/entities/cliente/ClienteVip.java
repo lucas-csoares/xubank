@@ -1,6 +1,14 @@
-package entities;
+package entities.cliente;
 
 public class ClienteVip extends Cliente{
+
+    public ClienteVip(String nome, String cpf, String senha) {
+        super(nome, cpf, senha);
+    }
+
+    public ClienteVip() {
+        super();
+    }
 
     static {
         TAXA_MENSAL = 30;
