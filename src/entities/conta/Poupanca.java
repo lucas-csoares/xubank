@@ -13,10 +13,18 @@ public final class Poupanca extends Conta implements OperacoesConta {
 
     private LocalDate ultimoRendimento;
 
-    public Poupanca(Cliente titular, Double saldo) {
-        super(titular, saldo);
+    public Poupanca(Cliente cliente, Double saldo) {
+        super(cliente, saldo);
         this.saldo = saldo;
         this.ultimoRendimento = dataRegistro;
+    }
+
+    public void imprimir() {
+        System.out.println("#####");
+        System.out.printf("Id      : %1s\n", this.id);
+        System.out.printf("Tipo    : %1s\n", this.getClass().getSimpleName());
+        System.out.printf("Saldo   : %1s\n", this.saldo);
+        System.out.printf("Registro: %1s\n", this.dataRegistro);
     }
 
     public void sacar(double valor) throws Exception {
@@ -54,8 +62,8 @@ public final class Poupanca extends Conta implements OperacoesConta {
 
         if (dataAtual.isAfter(proximaDataRendimento)) {
             int mesesRendimento = calcularDiferencaMeses(proximaDataRendimento, dataAtual);
-            double rendimento = mesesRendimento * TAXA_RENDIMENTO;
             this.depositar(saldo * mesesRendimento * TAXA_RENDIMENTO);
+            ultimoRendimento = dataAtual;
         }
     }
 
@@ -68,13 +76,5 @@ public final class Poupanca extends Conta implements OperacoesConta {
     public LocalDate obterProximaDataRendimento(LocalDate data) {
         return LocalDate.of(data.getYear(), data.getMonth(), 5).plusMonths(1);
     }
-
-
-    @Override
-    public Double getSaldo() {
-        atualizarSaldo();
-        return saldo;
-    }
-
 
 }
