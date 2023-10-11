@@ -13,8 +13,8 @@ public final class Poupanca extends Conta implements OperacoesConta {
 
     private LocalDate ultimoRendimento;
 
-    public Poupanca(Cliente cliente, Double saldo) {
-        super(cliente, saldo);
+    public Poupanca(Cliente cliente, Double saldo, String date) {
+        super(cliente, saldo, date);
         this.saldo = saldo;
         this.ultimoRendimento = dataRegistro;
     }
@@ -52,6 +52,7 @@ public final class Poupanca extends Conta implements OperacoesConta {
     }
 
     public void atualizarSaldo() {
+
         aplicarRendaFixa();
     }
 

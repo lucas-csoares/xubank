@@ -12,8 +12,8 @@ public final class Investimento extends Conta implements OperacoesConta {
 
     private final  Double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
 
-    public Investimento(Cliente titular, Double saldo) {
-        super(titular, saldo);
+    public Investimento(Cliente titular, Double saldo, String date) {
+        super(titular, saldo, date);
         rendimento = 0.0;
     }
 

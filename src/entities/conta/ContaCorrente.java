@@ -15,12 +15,13 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     private Double saqueEspecial = 200.00;
     private LocalDate ultimoDesconto;
 
-    public ContaCorrente(Cliente cliente, Double saldo) throws Exception {
-        super(cliente, saldo);
+    public ContaCorrente(Cliente cliente, Double saldo, String date) throws Exception {
+        super(cliente, saldo, date);
         this.ultimoDesconto = dataRegistro;
     }
 
     public void setSaqueEspecial(Double saqueEspecial) {
+
         this.saqueEspecial = saqueEspecial;
     }
 

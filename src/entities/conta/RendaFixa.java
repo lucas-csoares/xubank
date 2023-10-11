@@ -15,8 +15,8 @@ public final class RendaFixa extends Conta implements OperacoesConta {
     private LocalDate ultimoRendimento;
     private double ultimoValorRendimento;
 
-    public RendaFixa(Cliente titular, Double saldo, double RENDIMENTO) {
-        super(titular, saldo);
+    public RendaFixa(Cliente titular, Double saldo, double RENDIMENTO, String date) {
+        super(titular, saldo, date);
         this.RENDIMENTO = RENDIMENTO;
         this.ultimoRendimento = dataRegistro;
     }

@@ -4,6 +4,7 @@ import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Conta {
 
@@ -14,15 +15,18 @@ public class Conta {
     protected LocalDate dataRegistro;
     protected int id;
 
-    public Conta(Cliente cliente, Double saldo) {
+    protected final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("DD/MM/yyyy");
+
+    public Conta(Cliente cliente, Double saldo, String date) {
         cliente.addConta(this);
         this.cliente = cliente;
         this.saldo = saldo;
         this.id = PROX_ID++;
-        dataRegistro = LocalDate.now();
+        dataRegistro = LocalDate.parse(date,fmt);
     }
 
     public Double getSaldo() {
+
         return saldo;
     }
 
@@ -32,6 +36,7 @@ public class Conta {
     }
 
     public int getId() {
+
         return id;
     }
 
