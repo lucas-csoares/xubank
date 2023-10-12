@@ -1,7 +1,7 @@
 package entities;
 
 import entities.cliente.Cliente;
-
+import entities.conta.Conta;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class VisaoDiretoria {
         this.clientes = clientes;
     }
 
-    public void addCliente(Cliente cliente){
+    public void addCliente(Cliente cliente) {
 
         this.getClientes().add(cliente);
     }
@@ -37,33 +37,16 @@ public class VisaoDiretoria {
         this.getClientes().remove(cliente);
     }
 
-    // todo: saldo total de todas as contas abertas pelos clientes
-
-    /*public void calcCustodiaPorTipoDeConta(Conta conta) {
-
-    }*/
-
-    /*public double calcSaldoMedioTodasAsContas() {
-
-    }*/
-
-
-    /*public int totalClientesComSaldoNegativo() {
-
-    }*/
-
-    /*public Cliente clienteMaiorSaldo() {
-
-    }*/
-
-/*    public Cliente clienteMenorSaldo() {
-
-    }*/
-
-
-
-
-
-
+    public void calcCustodiaPorTipoDeConta(Conta tipoConta) {
+        double saldoTotal = 0.0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                if (conta.getClass() == tipoConta.getClass()) {
+                    saldoTotal += conta.getSaldo();
+                }
+            }
+        }
+        System.out.printf("Total de saldo para %s: %.2f\n", tipoConta.getClass().getSimpleName(), saldoTotal);
+    }
 
 }
