@@ -49,4 +49,21 @@ public class VisaoDiretoria {
         System.out.printf("Total de saldo para %s: %.2f\n", tipoConta.getClass().getSimpleName(), saldoTotal);
     }
 
+    public double calcSaldoMedioTodasAsContas() {
+        double saldoTotal = 0.0;
+        int totalContas = 0;
+        double media = 0.0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                saldoTotal += conta.getSaldo();
+                totalContas++;
+            }
+        }
+
+        if (totalContas > 0) {
+            media = saldoTotal / totalContas;
+        }
+
+        return media;
+    }
 }
