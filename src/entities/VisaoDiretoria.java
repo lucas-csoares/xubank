@@ -80,5 +80,37 @@ public class VisaoDiretoria {
         return count;
     }
 
-    
+    public void clienteMaiorSaldo() {
+        Cliente clienteComMaiorSaldo = null;
+        double maiorSaldo = Double.MIN_VALUE;
+        double saldoTotal = 0.0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                saldoTotal += conta.getSaldo();
+                if (saldoTotal > maiorSaldo) {
+                    maiorSaldo = saldoTotal;
+                    clienteComMaiorSaldo = cliente;
+                }
+            }
+        }
+
+        clienteComMaiorSaldo.imprimir();
+    }
+
+    public void clienteMenorSaldo() {
+        Cliente clienteComMenorSaldo = null;
+        double menorSaldo = Double.MAX_VALUE;
+        double saldoTotal = 0.0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                saldoTotal += conta.getSaldo();
+                if (saldoTotal < menorSaldo) {
+                    menorSaldo = saldoTotal;
+                    clienteComMenorSaldo = cliente;
+                }
+            }
+        }
+
+        clienteComMenorSaldo.imprimir();
+    }
 }
