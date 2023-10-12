@@ -15,7 +15,7 @@ public class Conta {
     protected LocalDate dataRegistro;
     protected int id;
 
-    protected final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("DD/MM/yyyy");
+    protected final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Conta(Cliente cliente, Double saldo, String date) {
         cliente.addConta(this);
