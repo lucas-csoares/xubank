@@ -66,4 +66,19 @@ public class VisaoDiretoria {
 
         return media;
     }
+
+    public int totalClientesComSaldoNegativo() {
+        int count = 0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                if (conta.getSaldo() < 0) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    
 }
