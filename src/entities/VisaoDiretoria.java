@@ -1,7 +1,7 @@
 package entities;
 
 import entities.cliente.Cliente;
-
+import entities.conta.Conta;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class VisaoDiretoria {
         this.clientes = clientes;
     }
 
-    public void addCliente(Cliente cliente){
+    public void addCliente(Cliente cliente) {
 
         this.getClientes().add(cliente);
     }
@@ -37,33 +37,75 @@ public class VisaoDiretoria {
         this.getClientes().remove(cliente);
     }
 
-    // todo: saldo total de todas as contas abertas pelos clientes
+    public void calcCustodiaPorTipoDeConta(Conta tipoConta) {
+        double saldoTotal = 0.0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                if (conta.getClass() == tipoConta.getClass()) {
+                    saldoTotal += conta.getSaldo();
+                }
+            }
+        }
+        System.out.printf("Total de saldo para %s: %.2f\n", tipoConta.getClass().getSimpleName(), saldoTotal);
+    }
 
-    /*public void calcCustodiaPorTipoDeConta(Conta conta) {
+    private double saldoTotalDoCliente(Cliente cliente) {
+        double saldoTotal = 0.0;
+        for (Conta conta : cliente.getContas()) {
+            saldoTotal += conta.getSaldo();
+        }
+        return saldoTotal;
+    }
 
-    }*/
+    public double calcSaldoMedioTodasAsContas() {
+        double saldoTotal = 0.0;
+        int totalContas = 0;
+        for (Cliente cliente : clientes) {
+            saldoTotal += saldoTotalDoCliente(cliente);
+            totalContas += cliente.getContas().size();
+        }
 
-    /*public double calcSaldoMedioTodasAsContas() {
+        return saldoTotal / totalContas;
+    }
 
-    }*/
+    public int totalClientesComSaldoNegativo() {
+        int count = 0;
+        for (Cliente cliente : clientes) {
+            for (Conta conta : cliente.getContas()) {
+                if (conta.getSaldo() < 0) {
+                    count++;
+                    break;
+                }
+            }
+        }
+        return count;
+    }
 
+    public void clienteMaiorSaldo() {
+        Cliente clienteComMaiorSaldo = null;
+        double maiorSaldo = Double.MIN_VALUE;
+        for (Cliente cliente : clientes) {
+            double saldoTotal = saldoTotalDoCliente(cliente);
+            if (saldoTotal > maiorSaldo) {
+                maiorSaldo = saldoTotal;
+                clienteComMaiorSaldo = cliente;
+            }
+        }
 
-    /*public int totalClientesComSaldoNegativo() {
+        clienteComMaiorSaldo.imprimir();
+    }
 
-    }*/
+    public void clienteMenorSaldo() {
+        Cliente clienteComMenorSaldo = null;
+        double menorSaldo = Double.MAX_VALUE;
+        for (Cliente cliente : clientes) {
+            double saldoTotal = saldoTotalDoCliente(cliente);
+            if (saldoTotal < menorSaldo) {
+                menorSaldo = saldoTotal;
+                clienteComMenorSaldo = cliente;
+            }
+        }
 
-    /*public Cliente clienteMaiorSaldo() {
-
-    }*/
-
-/*    public Cliente clienteMenorSaldo() {
-
-    }*/
-
-
-
-
-
-
-
+        clienteComMenorSaldo.imprimir();
+    }
 }
