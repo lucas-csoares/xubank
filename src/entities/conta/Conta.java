@@ -3,10 +3,8 @@ package entities.conta;
 import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
 import utils.DataHora;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Conta {
 

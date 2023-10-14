@@ -1,17 +1,12 @@
 package entities.conta;
 
 import entities.cliente.Cliente;
-import entities.conta.Conta;
 import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
 import utils.DataHora;
-
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Random;
 
 public final class Investimento extends Conta implements OperacoesConta {
@@ -116,6 +111,13 @@ public final class Investimento extends Conta implements OperacoesConta {
         cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
 
 
+    }
+
+    public void imprimir() {
+        System.out.println("#####");
+        System.out.printf("Id      : %1s\n", this.id);
+        System.out.printf("Saldo   : %1s\n", this.saldo);
+        System.out.printf("Registro: %1s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
 }
