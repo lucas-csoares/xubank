@@ -15,7 +15,7 @@ public class Conta {
     protected LocalDate dataRegistro;
     protected int id;
 
-    protected final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("DD/MM/yyyy");
+    public static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("DD/MM/yyyy");
 
     public Conta(Cliente cliente, Double saldo, String date) {
         cliente.addConta(this);
@@ -63,7 +63,7 @@ public class Conta {
         if (valor < 0)
             throw new IllegalArgumentException("Valor de depósito inválido");
         saldo += valor;
-        cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor, LocalDate.now()));
     }
 
 }

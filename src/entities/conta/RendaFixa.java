@@ -48,11 +48,11 @@ public final class RendaFixa extends Conta implements OperacoesConta {
 
         double impostoSobreRendimento = calcularImpostoSobreRendimento();
         saldo -= (valor + impostoSobreRendimento);
-        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor, LocalDate.now()));
     }
 
     private double calcularImpostoSobreRendimento() {
-        return ultimoValorRendimento * 0.15;
+        return ultimoValorRendimento * IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE;
     }
 
     public void transferir(Double valor, Conta conta) throws Exception {
@@ -65,7 +65,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         this.saldo -= valor;
         conta.depositar(valor);
 
-        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDate.now()));
     }
 
 

@@ -21,7 +21,6 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     }
 
     public void setSaqueEspecial(Double saqueEspecial) {
-
         this.saqueEspecial = saqueEspecial;
     }
 
