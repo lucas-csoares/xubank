@@ -3,8 +3,10 @@ package entities.conta;
 import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
+import utils.DataHora;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 public final class Poupanca extends Conta implements OperacoesConta {
@@ -24,7 +26,7 @@ public final class Poupanca extends Conta implements OperacoesConta {
         System.out.printf("Id      : %1s\n", this.id);
         System.out.printf("Tipo    : %1s\n", this.getClass().getSimpleName());
         System.out.printf("Saldo   : %1s\n", this.saldo);
-        System.out.printf("Registro: %1s\n", this.dataRegistro);
+        System.out.printf("Registro: %1s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
     public void sacar(double valor) throws Exception {
@@ -35,7 +37,7 @@ public final class Poupanca extends Conta implements OperacoesConta {
             throw new Exception("Saque de " + valor + " não permitido. Saldo insuficiente.");
 
         saldo -= valor;
-        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor, LocalDateTime.now()));
     }
 
     public void transferir(Double valor, Conta conta) throws Exception {
@@ -48,7 +50,7 @@ public final class Poupanca extends Conta implements OperacoesConta {
         this.saldo -= valor;
         conta.depositar(valor);
 
-        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
     }
 
     public void atualizarSaldo() {

@@ -1,8 +1,10 @@
 package entities.conta;
 
 import enums.TransacaoCategoria;
+import utils.DataHora;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Transacao {
 
@@ -11,21 +13,21 @@ public class Transacao {
     private Conta contaOrigem;
     private Conta contaDestino;
 
-    private LocalDate dataAtual;
+    private LocalDateTime dataHoraAtual;
 
-    public Transacao(TransacaoCategoria categoria, double valor, LocalDate dataAtual) {
+    public Transacao(TransacaoCategoria categoria, double valor, LocalDateTime dataHoraAtual) {
         this.categoria = categoria;
         this.valor = valor;
-        this.dataAtual = dataAtual;
+        this.dataHoraAtual = dataHoraAtual;
     }
 
     public Transacao(TransacaoCategoria categoria, double valor, Conta contaOrigem, Conta contaDestino,
-                     LocalDate dataAtual) {
+                     LocalDateTime dataHoraAtual) {
         this.categoria = categoria;
         this.valor = valor;
         this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
-        this.dataAtual = dataAtual;
+        this.dataHoraAtual = dataHoraAtual;
     }
 
     public void imprimir() {
@@ -44,7 +46,7 @@ public class Transacao {
 
     private void imprimirTransferencia() {
         System.out.println("---");
-        System.out.println("Data            :" + this.dataAtual.format(Conta.fmt));
+        System.out.println("Data            :" + this.dataHoraAtual.format(DataHora.fmt));
         System.out.printf("Transacao        : %1s\n", TransacaoCategoria.TRANSFERENCIA);
         System.out.printf("Valor transferido: %1s\n", valor);
         System.out.printf("Conta origem(id) : %1s\n", contaOrigem.getId());
@@ -53,14 +55,14 @@ public class Transacao {
 
     private void imprimirSaque() {
         System.out.println("---");
-        System.out.println("Data            :" + this.dataAtual.format(Conta.fmt));
+        System.out.println("Data            :" + this.dataHoraAtual.format(DataHora.fmt));
         System.out.printf("Transacao       : %1s\n", TransacaoCategoria.SAQUE);
         System.out.printf("Valor sacado    : %1s", valor);
     }
 
     private void imprimirDeposito() {
         System.out.println("---");
-        System.out.println("Data            :" + this.dataAtual.format(Conta.fmt));
+        System.out.println("Data            :" + this.dataHoraAtual.format(DataHora.fmt));
         System.out.printf("Transacao       : %1s\n", TransacaoCategoria.DEPOSITO);
         System.out.printf("Valor depositado: %1s", valor);
     }

@@ -2,8 +2,10 @@ package entities.conta;
 
 import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
+import utils.DataHora;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Conta {
@@ -15,14 +17,12 @@ public class Conta {
     protected LocalDate dataRegistro;
     protected int id;
 
-    public static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("DD/MM/yyyy");
-
     public Conta(Cliente cliente, Double saldo, String date) {
         cliente.addConta(this);
         this.cliente = cliente;
         this.saldo = saldo;
         this.id = PROX_ID++;
-        dataRegistro = LocalDate.parse(date,fmt);
+        dataRegistro = LocalDate.parse(date, DataHora.fmtData);
     }
 
     public Double getSaldo() {
@@ -56,14 +56,14 @@ public class Conta {
         System.out.println("#####");
         System.out.printf("Id      : %1s\n", this.id);
         System.out.printf("Saldo   : %1s\n", this.saldo);
-        System.out.printf("Registro: %1s\n", this.dataRegistro);
+        System.out.printf("Registro: %1s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
     public void depositar(double valor) {
         if (valor < 0)
             throw new IllegalArgumentException("Valor de depósito inválido");
         saldo += valor;
-        cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor, LocalDate.now()));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.DEPOSITO, valor, LocalDateTime.now()));
     }
 
 }

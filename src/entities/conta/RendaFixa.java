@@ -3,8 +3,10 @@ package entities.conta;
 import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
+import utils.DataHora;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 public final class RendaFixa extends Conta implements OperacoesConta {
@@ -27,7 +29,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         System.out.printf("Tipo      : %1s\n", this.getClass().getSimpleName());
         System.out.printf("Rendimento: %1s%%\n", this.RENDIMENTO * 100);
         System.out.printf("Saldo     : %1s\n", this.saldo);
-        System.out.printf("Registro  : %1s\n", this.dataRegistro);
+        System.out.printf("Registro  : %1s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
     public Double getIMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE() {
@@ -48,7 +50,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
 
         double impostoSobreRendimento = calcularImpostoSobreRendimento();
         saldo -= (valor + impostoSobreRendimento);
-        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor, LocalDate.now()));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.SAQUE, valor, LocalDateTime.now()));
     }
 
     private double calcularImpostoSobreRendimento() {
@@ -65,7 +67,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         this.saldo -= valor;
         conta.depositar(valor);
 
-        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDate.now()));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
     }
 
 
