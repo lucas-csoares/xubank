@@ -11,7 +11,6 @@ import java.time.Period;
 
 public final class RendaFixa extends Conta implements OperacoesConta {
 
-    private final double IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE = 0.15;
     private final double RENDIMENTO;
 
     private LocalDate ultimoRendimento;
@@ -32,9 +31,6 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         System.out.printf("Registro: %s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
-    public Double getIMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE() {
-        return IMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE;
-    }
 
     public Double getRENDIMENTO() {
         return RENDIMENTO;
