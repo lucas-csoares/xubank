@@ -31,7 +31,7 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
         System.out.printf("Id      : %1s\n", this.id);
         System.out.printf("Tipo    : %1s\n", this.getClass().getSimpleName());
         System.out.printf("Saldo   : %1s\n", this.saldo);
-        System.out.printf("Registro: %1s\n", this.dataRegistro.format(DataHora.fmtData));
+        System.out.printf("Registro: %s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
     public void sacar(double valor) throws Exception {

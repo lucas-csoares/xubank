@@ -29,7 +29,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         System.out.printf("Tipo      : %1s\n", this.getClass().getSimpleName());
         System.out.printf("Rendimento: %1s%%\n", this.RENDIMENTO * 100);
         System.out.printf("Saldo     : %1s\n", this.saldo);
-        System.out.printf("Registro  : %1s\n", this.dataRegistro.format(DataHora.fmtData));
+        System.out.printf("Registro: %s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
     public Double getIMPOSTO_SOBRE_RENDIMENTO_NO_SAQUE() {
