@@ -44,7 +44,7 @@ public class Cadastro {
         return cliente;
     }
 
-    public static Conta cadastrarContaCorrente(Cliente cliente) {
+    public static Conta cadastrarContaCorrente(Cliente cliente) throws Exception {
         Scanner input = new Scanner(System.in);
         System.out.println("Digite o saldo inicial da Conta Corrente: ");
         Double saldoInicial = input.nextDouble();
@@ -89,9 +89,10 @@ public class Cadastro {
     public static Conta cadastrarInvestimento(Cliente cliente) {
         System.out.println("Digite o saldo inicial do Investimento: ");
         double saldoInicial = sc.nextDouble();
+        sc.nextLine();
 
         System.out.println("Digite a data e hora (no formato DD/MM/yyyy HH:mm:ss): ");
-        String dataHoraAtual = sc.next();
+        String dataHoraAtual = sc.nextLine();
 
         Investimento conta = new Investimento(cliente, saldoInicial, "14/10/2023", dataHoraAtual);
         cliente.addConta(conta);
