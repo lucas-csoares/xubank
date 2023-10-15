@@ -2,11 +2,16 @@ package entities;
 
 import entities.cliente.Cliente;
 import entities.conta.Conta;
+import interfaces.OperacoesConta;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VisaoDiretoria {
     private List<Cliente> clientes = new ArrayList<>();
+
+    private List<Conta> contas = new ArrayList<>();
 
     public VisaoDiretoria() {
 
@@ -27,14 +32,31 @@ public class VisaoDiretoria {
         this.clientes = clientes;
     }
 
+    public List<Conta> getContas() {
+        return contas;
+    }
+
+    public void setContas(List<Conta> contas) {
+        this.contas = contas;
+    }
+
     public void addCliente(Cliente cliente) {
 
         this.getClientes().add(cliente);
     }
 
+
     public void removeCliente(Cliente cliente) {
 
         this.getClientes().remove(cliente);
+    }
+
+    public void addConta(Conta conta) {
+        this.getContas().add(conta);
+    }
+
+    public void removeConta(Conta conta) {
+        this.getContas().remove(conta);
     }
 
     public void calcCustodiaPorTipoDeConta(Conta tipoConta) {
@@ -92,6 +114,7 @@ public class VisaoDiretoria {
             }
         }
 
+        assert clienteComMaiorSaldo != null;
         clienteComMaiorSaldo.imprimir();
     }
 
@@ -106,6 +129,47 @@ public class VisaoDiretoria {
             }
         }
 
+        assert clienteComMenorSaldo != null;
         clienteComMenorSaldo.imprimir();
     }
+
+
+    public Cliente encontrarClientePorCpfESenha() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o CPF do cliente: ");
+        String cpf = sc.nextLine();
+        System.out.println("Digite a senha do cliente: ");
+        String senha = sc.nextLine();
+
+        for (Cliente cliente : this.getClientes()) {
+            if (cliente.getCpf().equals(cpf) && cliente.getSenha().equals(senha)) {
+                return cliente;
+            }
+        }
+
+        throw new Exception("Cliente não encontrado.");
+    }
+
+
+    public void realizarOperacaoSaque(Conta conta, double valor) throws Exception {
+
+        if(!(conta instanceof OperacoesConta))
+            throw new Exception("Operação não suportada para este tipo de conta.");
+
+        ((OperacoesConta) conta).sacar(valor);
+    }
+
+
+    public void realizarOperacaoTransferir(Conta conta, double valor) throws Exception{
+
+        if(!(conta instanceof OperacoesConta))
+            throw new Exception("Operação não suportada para este tipo de conta.");
+
+
+        ((OperacoesConta) conta).transferir(valor, conta);
+    }
+
+
+
+
 }

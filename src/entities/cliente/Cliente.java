@@ -121,17 +121,22 @@ public class Cliente {
             throw new Exception("id invalido!");
     }
 
-    private Conta obterConta(int id) {
+    public Conta obterConta(int id) {
         return this.contas.stream()
                 .filter(conta -> conta.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
+
+
     public void consultarExtrato() {
         System.out.println("Extrato da conta:");
         this.transacoes.forEach(Transacao::imprimir);
     }
+
+
+
 
 }
 

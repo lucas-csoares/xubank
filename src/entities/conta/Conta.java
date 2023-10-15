@@ -6,7 +6,7 @@ import utils.DataHora;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Conta {
+public abstract class Conta {
 
     private static int PROX_ID = 0;
 
