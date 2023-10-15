@@ -4,8 +4,6 @@ import entities.cliente.Cliente;
 import entities.cliente.ClienteGold;
 import entities.cliente.ClienteVip;
 import entities.conta.*;
-
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Cadastro {
@@ -42,13 +40,11 @@ public class Cadastro {
         }
         System.out.println("Cliente cadastrado com sucesso!");
 
-        cliente.imprimir();
 
         return cliente;
     }
 
     public static Conta cadastrarContaCorrente(Cliente cliente) {
-        cliente.imprimir();
         Scanner input = new Scanner(System.in);
         System.out.println("Digite o saldo inicial da Conta Corrente: ");
         Double saldoInicial = input.nextDouble();
