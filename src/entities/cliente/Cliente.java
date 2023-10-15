@@ -2,7 +2,6 @@ package entities.cliente;
 
 import entities.conta.Conta;
 import entities.conta.Transacao;
-import enums.TransacaoCategoria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +9,14 @@ import java.util.Scanner;
 
 public class Cliente {
 
+    // Propriedades estáticas compartilhadas por todas as instâncias da classe Cliente
     protected static int TAXA_MENSAL = 0;
     protected static int FIDELIDADE_PONTOS = 0;
     protected static int ACUMULO_PONTOS = 0;
     protected static int SALDO_PARA_PONTOS = 0;
     private static int PROX_ID = 0;
 
+    // Propriedades estáticas compartilhadas por todas as instâncias da classe Cliente
     private final int id;
     private String nome;
     private String cpf;
@@ -23,6 +24,13 @@ public class Cliente {
     private List<Conta> contas;
     private List<Transacao> transacoes;
 
+    /**
+     * Construtor para criar uma instância de Cliente com nome, CPF e senha.
+     *
+     * @param nome  Nome do cliente.
+     * @param cpf   CPF do cliente.
+     * @param senha Senha do cliente.
+     */
     public Cliente(String nome, String cpf, String senha) {
         this.nome = nome;
         this.cpf = cpf;
@@ -32,6 +40,9 @@ public class Cliente {
         transacoes = new ArrayList<>();
     }
 
+    /**
+     * Construtor vazio que cria uma instância de Cliente com valores padrão.
+     */
     public Cliente() {
         this.nome = this.cpf = this.senha = "";
         this.id = PROX_ID++;
@@ -70,10 +81,20 @@ public class Cliente {
         this.contas = contas;
     }
 
+    /**
+     * Adiciona uma conta à lista de contas do cliente.
+     *
+     * @param conta Conta a ser adicionada.
+     */
     public void addConta(Conta conta) {
         this.getContas().add(conta);
     }
 
+    /**
+     * Remove uma conta da lista de contas do cliente.
+     *
+     * @param conta Conta a ser removida.
+     */
     public void removerConta(Conta conta) {
         this.getContas().remove(conta);
     }
@@ -86,10 +107,18 @@ public class Cliente {
         this.transacoes = transacoes;
     }
 
+    /**
+     * Adiciona uma transação à lista de transações do cliente.
+     *
+     * @param transacao Transação a ser adicionada.
+     */
     public void addTransacao(Transacao transacao) {
         this.getTransacoes().add(transacao);
     }
 
+    /**
+     * Imprime informações do cliente, incluindo seu id, nome, CPF, senha, contas e transações.
+     */
     public void imprimir() {
         System.out.println("-------------------------");
         System.out.printf("Id      : %1s\n", this.id);
@@ -101,6 +130,11 @@ public class Cliente {
         System.out.println("-------------------------");
     }
 
+    /**
+     * Consulta o saldo de uma conta específica do cliente.
+     *
+     * @throws Exception Se o id da conta fornecido for inválido.
+     */
     public void consultarSaldo() throws Exception {
 
         Scanner scanner = new Scanner(System.in);
@@ -121,6 +155,12 @@ public class Cliente {
             throw new Exception("id invalido!");
     }
 
+    /**
+     * Obtém uma conta específica com base no id fornecido.
+     *
+     * @param id Id da conta a ser obtida.
+     * @return A conta correspondente ao id ou null se não encontrada.
+     */
     public Conta obterConta(int id) {
         return this.contas.stream()
                 .filter(conta -> conta.getId() == id)
@@ -128,15 +168,12 @@ public class Cliente {
                 .orElse(null);
     }
 
-
-
+    /**
+     * Consulta o extrato de transações do cliente.
+     */
     public void consultarExtrato() {
         System.out.println("Extrato da conta:");
         this.transacoes.forEach(Transacao::imprimir);
     }
-
-
-
-
 }
 
