@@ -15,6 +15,8 @@ public abstract class Conta {
     protected LocalDate dataRegistro;
     protected int id;
 
+    // O construtor `public Conta(Cliente cliente, Double saldo, String date)` está inicializando uma nova
+    // instância da classe `Conta`.
     public Conta(Cliente cliente, Double saldo, String date) {
         cliente.addConta(this);
         this.cliente = cliente;
@@ -50,6 +52,9 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
+    /**
+     * A função "imprimir" imprime o id, saldo e data de registro de um objeto.
+     */
     public void imprimir() {
         System.out.println("#####");
         System.out.printf("Id      : %1s\n", this.id);
@@ -57,6 +62,12 @@ public abstract class Conta {
         System.out.printf("Registro: %1s\n", this.dataRegistro.format(DataHora.fmtData));
     }
 
+    /**
+     * A função "depositar" adiciona um valor fornecido ao saldo da conta e registra a transação.
+     * 
+     * @param valor O parâmetro "valor" representa a quantia de dinheiro a ser depositada em uma
+     * conta.
+     */
     public void depositar(double valor) {
         if (valor < 0)
             throw new IllegalArgumentException("Valor de depósito inválido");
