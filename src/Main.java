@@ -3,12 +3,17 @@ import entities.cliente.Cliente;
 import entities.conta.Conta;
 import utils.Cadastro;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        Locale.setDefault(Locale.US); //todo: USE PONTO DECIMAL PARA VALORES DE PONTO FLUTUANTE.
         Scanner sc = new Scanner(System.in);
+        Cliente cliente = null;
+        Conta conta = null;
+        VisaoDiretoria visaoDiretoria = new VisaoDiretoria();
 
         while (true) {
             System.out.println("Escolha uma opção:");
@@ -24,19 +29,15 @@ public class Main {
             System.out.println("10 Consultar extrato");
             System.out.println("11. Consultar contas");
             System.out.println("12. Consultar saldo");
-            System.out.println("13. Remover conta");
-            System.out.println("14. Calcular custódia por tipo de conta");
-            System.out.println("15. Calcular saldo médio de todas as contas");
-            System.out.println("16. Total de clientes com saldo negativo");
-            System.out.println("17. Cliente com maior saldo");
-            System.out.println("18. Cliente com menor saldo");
+            System.out.println("13. Calcular custódia por tipo de conta");
+            System.out.println("14. Calcular saldo médio de todas as contas");
+            System.out.println("15. Total de clientes com saldo negativo");
+            System.out.println("16. Cliente com maior saldo");
+            System.out.println("17. Cliente com menor saldo");
             System.out.println("18. Sair");
-
+            System.out.print("Opção: ");
             int opcao = sc.nextInt();
             sc.nextLine();
-            Cliente cliente = null;
-            Conta conta = null;
-            VisaoDiretoria visaoDiretoria = new VisaoDiretoria();
             try {
                 if (opcao > 1 && opcao < 13) {
                     cliente = visaoDiretoria.encontrarClientePorCpfESenha();
@@ -108,7 +109,7 @@ public class Main {
                         break;
                     case 14:
                         System.out.println("\nCalculando saldo médio de todas as contas...");
-                        // Chame o método de cálculo de saldo médio aqui
+                        visaoDiretoria.calcSaldoMedioTodasAsContas();
                         break;
                     case 15:
                         int totalClientesSaldoNegativo = visaoDiretoria.totalClientesComSaldoNegativo();
@@ -132,6 +133,14 @@ public class Main {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.err.println("A execução foi interrompida devido a uma InterruptedException: " + e.getMessage());
+            }
+
+
         }
     }
 }

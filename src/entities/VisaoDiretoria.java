@@ -143,6 +143,7 @@ public class VisaoDiretoria {
 
         for (Cliente cliente : this.getClientes()) {
             if (cliente.getCpf().equals(cpf) && cliente.getSenha().equals(senha)) {
+                cliente.imprimir();
                 return cliente;
             }
         }

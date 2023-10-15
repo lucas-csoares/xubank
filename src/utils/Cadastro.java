@@ -8,19 +8,11 @@ import entities.conta.*;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-/**
- * A classe Cadastro fornece métodos para realizar o cadastro de clientes e contas.
- */
 public class Cadastro {
 
     private static Scanner sc = new Scanner(System.in);
 
-    /**
-     * Realiza o cadastro de um cliente comum, Vip ou Gold.
-     *
-     * @return Uma instância da classe Cliente.
-     * @throws Exception Se a opção de tipo de cliente fornecida for inválida.
-     */
+
     public static Cliente cliente() throws Exception {
 
         System.out.println("Digite o nome do cliente:");
@@ -29,12 +21,14 @@ public class Cadastro {
         String cpf = sc.nextLine();
         System.out.println("Digite a senha do cliente:");
         String senha = sc.next();
+        sc.nextLine();
         System.out.println("Escolha o tipo de cliente:");
         System.out.println("1. Comum");
         System.out.println("2. VIP");
         System.out.println("3. Gold");
-
+        System.out.print("Tipo: ");
         int tipoCliente = sc.nextInt();
+        sc.nextLine();
 
         Cliente cliente;
         if (tipoCliente == 1) {
@@ -48,52 +42,39 @@ public class Cadastro {
         }
         System.out.println("Cliente cadastrado com sucesso!");
 
+        cliente.imprimir();
+
         return cliente;
     }
 
-    /**
-     * Realiza o cadastro de uma conta corrente para um cliente.
-     *
-     * @param cliente O cliente para o qual a conta será cadastrada.
-     * @return Uma instância da classe ContaCorrente.
-     * @throws Exception Se ocorrer um problema durante o cadastro.
-     */
-    public static Conta cadastrarContaCorrente(Cliente cliente) throws Exception {
+    public static Conta cadastrarContaCorrente(Cliente cliente) {
+        cliente.imprimir();
+        Scanner input = new Scanner(System.in);
         System.out.println("Digite o saldo inicial da Conta Corrente: ");
-        double saldoInicial = sc.nextDouble();
+        Double saldoInicial = input.nextDouble();
+        input.nextLine();
 
         ContaCorrente conta = new ContaCorrente(cliente, saldoInicial, "14/10/2023");
-        cliente.addConta(conta);
+        //cliente.addConta(conta);
 
         System.out.println("Conta Corrente criada com sucesso!");
 
         return conta;
     }
 
-    /**
-     * Realiza o cadastro de uma conta poupança para um cliente.
-     *
-     * @param cliente O cliente para o qual a conta será cadastrada.
-     * @return Uma instância da classe Poupanca.
-     */
+
     public static Conta cadastrarPoupanca(Cliente cliente) {
         System.out.println("Digite o saldo inicial da Poupança: ");
         double saldoInicial = sc.nextDouble();
 
-        Poupanca conta = new Poupanca(cliente, saldoInicial, LocalDateTime.now().toString());
-        cliente.addConta(conta);
+        Poupanca conta = new Poupanca(cliente, saldoInicial, "14/10/2023");
+        //cliente.addConta(conta);
 
         System.out.println("Conta Poupança criada com sucesso!");
 
         return conta;
     }
 
-    /**
-     * Realiza o cadastro de uma conta de renda fixa para um cliente.
-     *
-     * @param cliente O cliente para o qual a conta será cadastrada.
-     * @return Uma instância da classe RendaFixa.
-     */
     public static Conta cadastrarRendaFixa(Cliente cliente) {
         System.out.println("Digite o saldo inicial da Renda Fixa: ");
         double saldoInicial = sc.nextDouble();
@@ -109,12 +90,6 @@ public class Cadastro {
         return conta;
     }
 
-    /**
-     * Realiza o cadastro de uma conta de investimento para um cliente.
-     *
-     * @param cliente O cliente para o qual a conta será cadastrada.
-     * @return Uma instância da classe Investimento.
-     */
     public static Conta cadastrarInvestimento(Cliente cliente) {
         System.out.println("Digite o saldo inicial do Investimento: ");
         double saldoInicial = sc.nextDouble();

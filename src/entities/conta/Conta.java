@@ -6,7 +6,7 @@ import utils.DataHora;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public abstract class Conta {
+public class Conta {
 
     private static int PROX_ID = 0;
 
@@ -20,7 +20,7 @@ public abstract class Conta {
         this.cliente = cliente;
         this.saldo = saldo;
         this.id = PROX_ID++;
-        dataRegistro = LocalDate.parse(date, DataHora.fmtData);
+        this.dataRegistro = LocalDate.parse(date, DataHora.fmtData);
     }
 
     public Double getSaldo() {

@@ -17,7 +17,7 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     private Double saqueEspecial = 200.00;
     private LocalDate ultimoDesconto;
 
-    public ContaCorrente(Cliente cliente, Double saldo, String date) throws Exception {
+    public ContaCorrente(Cliente cliente, Double saldo, String date){
         super(cliente, saldo, date);
         this.ultimoDesconto = dataRegistro;
     }
@@ -60,7 +60,7 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
         this.saldo -= valor;
         conta.depositar(valor);
 
-        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
+            cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
     }
 
     public void atualizarSaldo() {
