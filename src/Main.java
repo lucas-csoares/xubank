@@ -23,12 +23,13 @@ public class Main {
             System.out.println("9. Depositar");
             System.out.println("10 Consultar extrato");
             System.out.println("11. Consultar contas");
-            System.out.println("12. Remover conta");
-            System.out.println("13. Calcular custódia por tipo de conta");
-            System.out.println("14. Calcular saldo médio de todas as contas");
-            System.out.println("15. Total de clientes com saldo negativo");
-            System.out.println("16. Cliente com maior saldo");
-            System.out.println("17. Cliente com menor saldo");
+            System.out.println("12. Consultar saldo");
+            System.out.println("13. Remover conta");
+            System.out.println("14. Calcular custódia por tipo de conta");
+            System.out.println("15. Calcular saldo médio de todas as contas");
+            System.out.println("16. Total de clientes com saldo negativo");
+            System.out.println("17. Cliente com maior saldo");
+            System.out.println("18. Cliente com menor saldo");
             System.out.println("18. Sair");
 
             int opcao = sc.nextInt();
@@ -37,10 +38,10 @@ public class Main {
             Conta conta = null;
             VisaoDiretoria visaoDiretoria = new VisaoDiretoria();
             try {
-                if (opcao >= 2 && opcao <= 12) {
+                if (opcao > 1 && opcao < 13) {
                     cliente = visaoDiretoria.encontrarClientePorCpfESenha();
-                    if (opcao >= 8) {
-                        System.out.println("Digite o id da conta desejada");
+                    if (opcao > 6 && opcao < 10 || opcao == 12) {
+                        System.out.print("\nDigite o id da sua conta: ");
                         int id = sc.nextInt();
                         sc.nextLine();
                         conta = cliente.obterConta(id);
@@ -72,51 +73,57 @@ public class Main {
                         cliente.imprimir();
                         break;
                     case 7:
-                        System.out.print("Digite o valor do saque: ");
+                        System.out.print("\nDigite o valor do saque: ");
                         double valorSaque = sc.nextDouble();
                         sc.nextLine();
                         visaoDiretoria.realizarOperacaoSaque(conta, valorSaque);
                         break;
                     case 8:
-                        System.out.print("Digite o valor da transferência: ");
-                        double transferencia = sc.nextDouble();
-                        sc.nextLine();
-                        visaoDiretoria.realizarOperacaoTransferir(conta, transferencia);
+                        visaoDiretoria.realizarTransferenciaEntreContas(conta, sc);
                         break;
                     case 9:
-                        // Lógica para depósito
+                        System.out.print("\nDigite o valor do depósito: ");
+                        double valorDeposito = sc.nextDouble();
+                        sc.nextLine();
+                        conta.depositar(valorDeposito);
                         break;
                     case 10:
-                        // Lógica para consultar extrato
+                        cliente.consultarExtrato();
                         break;
                     case 11:
-                        // Lógica para consultar contas
+                        cliente.infoContas();
                         break;
                     case 12:
-                        // Lógica para remover conta
+                        cliente.consultarSaldo();
                         break;
                     case 13:
+                        System.out.print("\nDigite o cpf do titular da conta: ");
+                        String cpfTitular = sc.nextLine();
+                        System.out.print("Digite o id da conta: ");
+                        int idConta = sc.nextInt();
+                        sc.nextLine();
+                        Conta contaDesejada = visaoDiretoria.encontrarContaPorCPFId(cpfTitular, idConta);
                         System.out.println("Calculando custódia por tipo de conta...");
-                        // Chame o método de cálculo de custódia aqui
+                        visaoDiretoria.calcCustodiaPorTipoDeConta(contaDesejada);
                         break;
                     case 14:
-                        System.out.println("Calculando saldo médio de todas as contas...");
+                        System.out.println("\nCalculando saldo médio de todas as contas...");
                         // Chame o método de cálculo de saldo médio aqui
                         break;
                     case 15:
                         int totalClientesSaldoNegativo = visaoDiretoria.totalClientesComSaldoNegativo();
-                        System.out.println("Total de clientes com saldo negativo: " + totalClientesSaldoNegativo);
+                        System.out.println("\nTotal de clientes com saldo negativo: " + totalClientesSaldoNegativo);
                         break;
                     case 16:
-                        System.out.println("Cliente com maior saldo:");
+                        System.out.println("\nCliente com maior saldo:");
                         visaoDiretoria.clienteMaiorSaldo();
                         break;
                     case 17:
-                        System.out.println("Cliente com menor saldo:");
+                        System.out.println("\nCliente com menor saldo:");
                         visaoDiretoria.clienteMenorSaldo();
                         break;
                     case 18:
-                        System.out.println("Saindo do sistema. Até logo!");
+                        System.out.println("\nSaindo do sistema. Até logo!");
                         System.exit(0);
                         break;
                     default:

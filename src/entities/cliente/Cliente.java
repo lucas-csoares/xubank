@@ -136,6 +136,13 @@ public class Cliente {
     }
 
 
+    public void infoContas() {
+        for (Conta conta : this.getContas()) {
+            conta.imprimir();
+        }
+    }
+
+
 
 
 }

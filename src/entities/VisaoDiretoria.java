@@ -160,14 +160,47 @@ public class VisaoDiretoria {
     }
 
 
-    public void realizarOperacaoTransferir(Conta conta, double valor) throws Exception{
+    public void realizarOperacaoTransferir(Conta contaOrigem, Conta contaDestino, double valor) throws Exception{
 
-        if(!(conta instanceof OperacoesConta))
+        if(!(contaOrigem instanceof OperacoesConta))
             throw new Exception("Operação não suportada para este tipo de conta.");
 
 
-        ((OperacoesConta) conta).transferir(valor, conta);
+        ((OperacoesConta) contaOrigem).transferir(valor, contaDestino);
     }
+
+
+    public Conta encontrarContaPorCPFId(String cpfTitular, int idConta) throws Exception {
+        for (Conta conta : this.getContas()) {
+            if (conta.getTitular().getCpf().equals(cpfTitular) && conta.getId() == idConta) {
+                return conta;
+            }
+        }
+        throw new Exception("Conta não encontrada!");
+    }
+
+
+    public void realizarTransferenciaEntreContas(Conta contaOrigem, Scanner scanner) throws Exception {
+        System.out.print("Digite o valor da transferência: ");
+        double valorTransferencia = scanner.nextDouble();
+        scanner.nextLine();
+
+        System.out.print("Digite o CPF do titular da conta de destino: ");
+        String cpfDestino = scanner.nextLine();
+
+        System.out.print("Digite o ID da conta de destino: ");
+        int idContaDestino = scanner.nextInt();
+        scanner.nextLine();
+
+        // Encontre a conta de destino com base no CPF e no ID.
+        Conta contaDestino = encontrarContaPorCPFId(cpfDestino, idContaDestino);
+
+
+        realizarOperacaoTransferir(contaOrigem, contaDestino, valorTransferencia);
+        System.out.println("Transferência concluída com sucesso.");
+
+    }
+
 
 
 
