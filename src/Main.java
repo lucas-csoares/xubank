@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Locale.setDefault(Locale.US); //todo: USE PONTO DECIMAL PARA VALORES DE PONTO FLUTUANTE.
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         Cliente cliente = null;
         Conta conta = null;
@@ -140,8 +140,6 @@ public class Main {
             } catch (InterruptedException e) {
                 System.err.println("A execução foi interrompida devido a uma InterruptedException: " + e.getMessage());
             }
-
-
         }
     }
 }
