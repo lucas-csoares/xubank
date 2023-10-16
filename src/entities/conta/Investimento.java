@@ -4,6 +4,7 @@ import entities.cliente.Cliente;
 import enums.TransacaoCategoria;
 import interfaces.OperacoesConta;
 import utils.DataHora;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -11,16 +12,11 @@ import java.util.Random;
 
 public final class Investimento extends Conta implements OperacoesConta {
 
-    // Essas são variáveis de instância privadas e métodos getter/setter para a classe `Investimento`.
+    private final Double TAXA_SOBRE_RENDIMENTO_NO_SAQUE = 0.015;
     private Double rendimentoDiario;
-
     private Double valorDoUltimoRendimento;
-
     private LocalDateTime dataDoUltimoRendimento;
 
-    private final Double TAXA_SOBRE_RENDIMENTO_NO_SAQUE = 0.015;
-
-    // O usuário insere a DataHoraAtual para facilitar o teste.
     public Investimento(Cliente titular, Double saldo, String date, String dataHoraAtual) {
         super(titular, saldo, date);
         rendimentoDiario = 0.0;
@@ -36,7 +32,6 @@ public final class Investimento extends Conta implements OperacoesConta {
     }
 
     public Double getTAXA_SOBRE_RENDIMENTO_NO_SAQUE() {
-
         return TAXA_SOBRE_RENDIMENTO_NO_SAQUE;
     }
 
@@ -75,7 +70,7 @@ public final class Investimento extends Conta implements OperacoesConta {
 
     /**
      * A função gera um número aleatório entre -1 e 1.
-     * 
+     *
      * @return O método retorna um valor double aleatório entre -1 e 1.
      */
     private double gerarRendimento() {
@@ -88,7 +83,7 @@ public final class Investimento extends Conta implements OperacoesConta {
 
     /**
      * A função calcula o imposto sobre o último rendimento.
-     * 
+     *
      * @return O método retorna o valor calculado do imposto sobre o último rendimento.
      */
     private double calcularImpostoSobreRendimento() {
@@ -97,7 +92,7 @@ public final class Investimento extends Conta implements OperacoesConta {
 
     /**
      * A função calcula a taxa sobre os últimos ganhos.
-     * 
+     *
      * @return O método retorna o valor da taxa calculada sobre os últimos ganhos.
      */
     private double calcularTaxaSobreRendimento() {
@@ -107,9 +102,9 @@ public final class Investimento extends Conta implements OperacoesConta {
     /**
      * A função "sacar" subtrai uma quantia especificada do saldo, levando em consideração impostos e
      * taxas, e adiciona um registro de transação ao histórico do cliente.
-     * 
+     *
      * @param valor O parâmetro "valor" representa a quantia de dinheiro que o usuário deseja
-     * sacar de sua conta.
+     *              sacar de sua conta.
      */
     public void sacar(double valor) throws Exception {
         atualizarSaldo();
@@ -126,7 +121,7 @@ public final class Investimento extends Conta implements OperacoesConta {
     /**
      * A função transfere uma quantia especificada de dinheiro de uma conta para outra, atualizando
      * os saldos e registrando a transação.
-     * 
+     *
      * @param valor A quantia de dinheiro a ser transferida.
      * @param conta O parâmetro "conta" é um objeto do tipo "Conta", que representa uma conta bancária.
      */
