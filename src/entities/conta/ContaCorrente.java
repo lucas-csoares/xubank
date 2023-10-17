@@ -17,8 +17,6 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     private LocalDate ultimoDesconto;
 
 
-    public ContaCorrente(Cliente cliente, Double saldo, String date){
-
     // Este é um construtor para a classe `ContaCorrente`. Ele recebe três parâmetros: `cliente`,
     // `saldo` e `date`.
     public ContaCorrente(Cliente cliente, Double saldo, String date) throws Exception {
