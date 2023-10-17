@@ -2,28 +2,39 @@ package entities.conta;
 
 import enums.TransacaoCategoria;
 import utils.DataHora;
+
 import java.time.LocalDateTime;
 
 public class Transacao {
 
-    private TransacaoCategoria categoria;
-    private double valor;
+    private final TransacaoCategoria categoria;
+    private final double valor;
     private Conta contaOrigem;
     private Conta contaDestino;
+    private final LocalDateTime dataHoraAtual;
 
-    private LocalDateTime dataHoraAtual;
-
-    // O trecho de código está definindo um construtor para a classe `Transacao`.
+    /**
+     * Construtor para transações sem contas de origem e destino (depósito, saque).
+     *
+     * @param categoria      Categoria da transação.
+     * @param valor          Valor da transação.
+     * @param dataHoraAtual  Data e hora da transação.
+     */
     public Transacao(TransacaoCategoria categoria, double valor, LocalDateTime dataHoraAtual) {
         this.categoria = categoria;
         this.valor = valor;
         this.dataHoraAtual = dataHoraAtual;
     }
 
-    // O trecho de código está definindo um construtor para a classe `Transacao`. Este construtor recebe
-    // vários parâmetros: `categoria` (do tipo `TransacaoCategoria`), `valor` (do tipo `double`),
-    // `contaOrigem` (do tipo `Conta`), `contaDestino` (do tipo `Conta`) e `dataHoraAtual` (do tipo
-    // `LocalDateTime`).
+    /**
+     * Construtor para transações com contas de origem e destino (transferência).
+     *
+     * @param categoria      Categoria da transação.
+     * @param valor          Valor da transação.
+     * @param contaOrigem    Conta de origem da transação.
+     * @param contaDestino   Conta de destino da transação.
+     * @param dataHoraAtual  Data e hora da transação.
+     */
     public Transacao(TransacaoCategoria categoria, double valor, Conta contaOrigem, Conta contaDestino,
                      LocalDateTime dataHoraAtual) {
         this.categoria = categoria;
@@ -34,8 +45,7 @@ public class Transacao {
     }
 
     /**
-     * A função "imprimir" usa uma declaração switch para determinar a categoria de uma transação e
-     * chama o método de impressão correspondente.
+     * Imprime os detalhes da transação com base na categoria (depósito, saque ou transferência).
      */
     public void imprimir() {
         switch (categoria) {
@@ -51,9 +61,9 @@ public class Transacao {
         }
     }
 
-    // O trecho de código está definindo três métodos privados: `imprimirTransferencia()`,
-    // `imprimirSaque()` e `imprimirDeposito()`. Esses métodos são responsáveis por imprimir os
-    // detalhes de uma transação com base em sua categoria.
+    /**
+     * Imprime os detalhes de uma transação de transferência.
+     */
     private void imprimirTransferencia() {
         System.out.println("---");
         System.out.println("Data            : " + this.dataHoraAtual.format(DataHora.fmt));
@@ -63,6 +73,9 @@ public class Transacao {
         System.out.printf("Conta destino(id): %1s\n", contaDestino.getId());
     }
 
+    /**
+     * Imprime os detalhes de uma transação de saque.
+     */
     private void imprimirSaque() {
         System.out.println("---");
         System.out.println("Data            : " + this.dataHoraAtual.format(DataHora.fmt));
@@ -70,6 +83,9 @@ public class Transacao {
         System.out.printf("Valor sacado    : %1s", valor);
     }
 
+    /**
+     * Imprime os detalhes de uma transação de depósito.
+     */
     private void imprimirDeposito() {
         System.out.println("---");
         System.out.println("Data            : " + this.dataHoraAtual.format(DataHora.fmt));

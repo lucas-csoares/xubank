@@ -3,6 +3,8 @@ package entities.cliente;
 import entities.conta.Conta;
 import entities.conta.Transacao;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,8 +18,9 @@ public class Cliente {
     protected static int SALDO_PARA_PONTOS = 0;
     private static int PROX_ID = 0;
 
-    // Propriedades estáticas compartilhadas por todas as instâncias da classe Cliente
+    // Propriedades da classe Cliente
     private final int id;
+    private final LocalDate dataCriacao;
     private String nome;
     private String cpf;
     private String senha;
@@ -36,6 +39,7 @@ public class Cliente {
         this.cpf = cpf;
         this.senha = senha;
         this.id = PROX_ID++;
+        this.dataCriacao = LocalDate.now();
         contas = new ArrayList<>();
         transacoes = new ArrayList<>();
     }
@@ -46,6 +50,8 @@ public class Cliente {
     public Cliente() {
         this.nome = this.cpf = this.senha = "";
         this.id = PROX_ID++;
+        this.dataCriacao = LocalDate.now();
+        contas = new ArrayList<>();
         transacoes = new ArrayList<>();
     }
 
@@ -125,6 +131,8 @@ public class Cliente {
         System.out.printf("Cliente : %1s\n", this.nome);
         System.out.printf("CPF     : %1s\n", this.cpf);
         System.out.printf("Senha   : %1s\n", this.senha);
+        System.out.printf("Taxa    : %1s\n", calcularTaxaMensal());
+        System.out.printf("Pontos  : %1s\n", calcularPontos());
         System.out.print("Contas  : \n");
         this.contas.forEach(Conta::imprimir);
         System.out.println("-------------------------");
@@ -176,15 +184,48 @@ public class Cliente {
         this.transacoes.forEach(Transacao::imprimir);
     }
 
-
+    /**
+     * Imprime informacoes das contas cadastradas
+     */
     public void infoContas() {
         for (Conta conta : this.getContas()) {
             conta.imprimir();
         }
     }
 
+    /**
+     * Calcula o valor da taxa mensal com base na diferença de meses entre a data de criação
+     * e a data atual, multiplicado pela taxa mensal.
+     *
+     * @return O valor da taxa mensal.
+     */
+    public long calcularTaxaMensal() {
+        return TAXA_MENSAL * obterMesesDesdeCriacao();
+    }
 
+    /**
+     * Calcula quantos meses se passaram desde a criação da conta
+     *
+     * @return meses passados desde a criação da conta
+     */
+    public long obterMesesDesdeCriacao() {
+        LocalDate dataAtual = LocalDate.now();
+        return Period.between(this.dataCriacao, dataAtual).toTotalMonths();
+    }
 
+    /**
+     * Calcula quantos pontos o cliente possui
+     *
+     * @return pontos acumulados
+     */
+    public long calcularPontos() {
 
+        int total = 0;
+
+        for (Conta conta : contas)
+            total += conta.getSaldo();
+
+        return (long) (total / SALDO_PARA_PONTOS) * ACUMULO_PONTOS + FIDELIDADE_PONTOS * obterMesesDesdeCriacao();
+    }
 }
 

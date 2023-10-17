@@ -12,11 +12,15 @@ import java.time.Period;
 public final class Poupanca extends Conta implements OperacoesConta {
 
     private final double TAXA_RENDIMENTO = 0.005;
-
     private LocalDate ultimoRendimento;
 
-    // O construtor `public Poupanca(Cliente cliente, Double saldo, String date)` está inicializando uma
-    // nova instância da classe `Poupanca`.
+    /**
+     * Construtor para a classe Poupanca.
+     *
+     * @param cliente Cliente associado à conta poupança.
+     * @param saldo   Saldo inicial da conta poupança.
+     * @param date    Data de criação da conta poupança.
+     */
     public Poupanca(Cliente cliente, Double saldo, String date) {
         super(cliente, saldo, date);
         this.saldo = saldo;
@@ -24,8 +28,7 @@ public final class Poupanca extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "imprimir" imprime informações sobre um objeto, incluindo seu id, tipo, saldo e data de
-     * registro.
+     * Imprime informações sobre a conta poupança, incluindo id, tipo, saldo e data de registro.
      */
     public void imprimir() {
         System.out.println("#####");
@@ -36,14 +39,13 @@ public final class Poupanca extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "sacar" permite ao usuário sacar uma quantia especificada de sua conta, atualizando o
-     * saldo e registrando a transação.
-     * 
-     * @param valor O parâmetro "valor" representa a quantia de dinheiro que o usuário deseja sacar de sua
-     * conta.
+     * Permite ao usuário sacar uma quantia especificada da conta poupança, atualizando o saldo e
+     * registrando a transação.
+     *
+     * @param valor A quantia de dinheiro a ser sacada.
+     * @throws Exception Se o saque não for permitido devido a saldo insuficiente.
      */
     public void sacar(double valor) throws Exception {
-
         atualizarSaldo();
 
         if (valor > saldo)
@@ -54,14 +56,14 @@ public final class Poupanca extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "transferir" transfere uma quantia especificada de dinheiro de uma conta para outra,
+     * Transfere uma quantia especificada de dinheiro de uma conta poupança para outra conta,
      * atualizando os saldos e registrando a transação.
-     * 
+     *
      * @param valor A quantia de dinheiro a ser transferida.
-     * @param conta O parâmetro "conta" é um objeto da classe "Conta", que representa uma conta bancária.
+     * @param conta A conta de destino da transferência.
+     * @throws Exception Se a transferência não for permitida devido a saldo insuficiente.
      */
     public void transferir(Double valor, Conta conta) throws Exception {
-
         atualizarSaldo();
 
         if (valor > saldo)
@@ -74,19 +76,17 @@ public final class Poupanca extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "atualizarSaldo" aplica o rendimento da renda fixa.
+     * Aplica o rendimento mensal da conta poupança.
      */
     public void atualizarSaldo() {
-
-        aplicarRendaFixa();
+        aplicarRendimento();
     }
 
     /**
-     * A função "aplicarRendaFixa" calcula e aplica o rendimento da renda fixa ao saldo atual se a data
-     * atual for posterior à próxima data de pagamento de juros.
+     * Calcula e aplica o rendimento mensal da conta poupança se a data atual for posterior à próxima
+     * data de rendimento.
      */
-    private void aplicarRendaFixa() {
-
+    private void aplicarRendimento() {
         LocalDate dataAtual = LocalDate.now();
         LocalDate proximaDataRendimento = obterProximaDataRendimento(ultimoRendimento);
 
@@ -97,15 +97,22 @@ public final class Poupanca extends Conta implements OperacoesConta {
         }
     }
 
+    /**
+     * Calcula a diferença em meses entre duas datas.
+     *
+     * @param dataInicial A data inicial.
+     * @param dataFinal   A data final.
+     * @return A diferença em meses.
+     */
     private int calcularDiferencaMeses(LocalDate dataInicial, LocalDate dataFinal) {
         return Period.between(dataInicial, dataFinal).getMonths() + 1;
     }
 
     /**
-     * A função "obterProximaDataRendimento" retorna a próxima data de rendimento com base na data fornecida.
-     * 
-     * @param data O parâmetro "data" é do tipo LocalDate e representa uma data específica.
-     * @return O método retorna um objeto LocalDate.
+     * Retorna a próxima data de rendimento com base na data fornecida.
+     *
+     * @param data A data fornecida.
+     * @return A próxima data de rendimento.
      */
     public LocalDate obterProximaDataRendimento(LocalDate data) {
         return LocalDate.of(data.getYear(), data.getMonth(), 5).plusMonths(1);

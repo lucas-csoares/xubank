@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Locale.setDefault(Locale.US); //todo: USE PONTO DECIMAL PARA VALORES DE PONTO FLUTUANTE.
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
         Cliente cliente = null;
         Conta conta = null;
@@ -109,7 +109,8 @@ public class Main {
                         break;
                     case 14:
                         System.out.println("\nCalculando saldo médio de todas as contas...");
-                        visaoDiretoria.calcSaldoMedioTodasAsContas();
+                        double media = visaoDiretoria.calcSaldoMedioTodasAsContas();
+                        System.out.println("\nSaldo médio de todas as contas: " + media);
                         break;
                     case 15:
                         int totalClientesSaldoNegativo = visaoDiretoria.totalClientesComSaldoNegativo();
@@ -139,8 +140,6 @@ public class Main {
             } catch (InterruptedException e) {
                 System.err.println("A execução foi interrompida devido a uma InterruptedException: " + e.getMessage());
             }
-
-
         }
     }
 }

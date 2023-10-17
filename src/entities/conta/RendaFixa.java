@@ -12,7 +12,6 @@ import java.time.Period;
 public final class RendaFixa extends Conta implements OperacoesConta {
 
     private final double RENDIMENTO;
-
     private LocalDate ultimoRendimento;
     private double ultimoValorRendimento;
 
@@ -44,9 +43,9 @@ public final class RendaFixa extends Conta implements OperacoesConta {
     /**
      * A função "sacar" em Java permite que um usuário saque uma quantia especificada de sua conta,
      * atualize o saldo e adicione um registro de transação.
-     * 
+     *
      * @param valor O parâmetro "valor" representa a quantia de dinheiro que o usuário deseja sacar de sua
-     * conta.
+     *              conta.
      */
     public void sacar(double valor) throws Exception {
 
@@ -67,7 +66,7 @@ public final class RendaFixa extends Conta implements OperacoesConta {
     /**
      * A função "transferir" transfere uma quantia especificada de dinheiro de uma conta para outra,
      * atualiza os saldos e registra a transação.
-     * 
+     *
      * @param valor A quantia de dinheiro a ser transferida.
      * @param conta O parâmetro "conta" é um objeto do tipo "Conta", que representa uma conta bancária.
      */
@@ -105,14 +104,13 @@ public final class RendaFixa extends Conta implements OperacoesConta {
         }
     }
 
-    /*todo: conferir se essa função está funcionando corretamente*/
     private int calcularDiferencaMeses(LocalDate dataInicial, LocalDate dataFinal) {
         return Period.between(dataInicial, dataFinal).getMonths() + 1;
     }
 
     /**
      * A função "obterPróximaDataRendimento" retorna a próxima data de rendimento com base na data fornecida.
-     * 
+     *
      * @param data O parâmetro "data" é do tipo LocalDate e representa uma data específica.
      * @return O método está retornando um objeto LocalDate.
      */

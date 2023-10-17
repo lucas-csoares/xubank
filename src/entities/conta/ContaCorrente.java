@@ -11,7 +11,6 @@ import java.time.temporal.ChronoUnit;
 
 public final class ContaCorrente extends Conta implements OperacoesConta {
 
-    // Estas linhas declaram e inicializam variáveis de instância na classe `ContaCorrente`.
     private final Double TAXA_MENSAL = 20.00;
     private Double saqueEspecial = 200.00;
     private LocalDate ultimoDesconto;
@@ -19,24 +18,30 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
 
     // Este é um construtor para a classe `ContaCorrente`. Ele recebe três parâmetros: `cliente`,
     // `saldo` e `date`.
+    /**
+     * Construtor da classe ContaCorrente, utilizado para criar uma nova instância de conta corrente.
+     *
+     * @param cliente Cliente associado à conta corrente.
+     * @param saldo   Saldo inicial da conta corrente.
+     * @param date    Data de registro da conta corrente no formato "DD/MM/yyyy".
+     * @throws Exception Lançada se houver um erro ao criar a conta corrente.
+     */
     public ContaCorrente(Cliente cliente, Double saldo, String date) throws Exception {
         super(cliente, saldo, date);
         this.ultimoDesconto = dataRegistro;
     }
 
     /**
-     * A função define o valor da variável "saqueEspecial".
-     * 
-     * @param saqueEspecial O parâmetro "saqueEspecial" é do tipo Double e representa o valor do
-     * saque especial.
+     * Define o valor do saque especial.
+     *
+     * @param saqueEspecial O parâmetro "saqueEspecial" é do tipo Double e representa o valor do saque especial.
      */
     public void setSaqueEspecial(Double saqueEspecial) {
         this.saqueEspecial = saqueEspecial;
     }
 
     /**
-     * A função "imprimir" imprime informações sobre um objeto, incluindo seu id, tipo, saldo e data de
-     * registro.
+     * Imprime informações sobre a conta corrente, incluindo id, tipo, saldo e data de registro.
      */
     public void imprimir() {
         System.out.println("#####");
@@ -47,10 +52,11 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "sacar" permite a um usuário sacar uma quantia especificada de dinheiro de sua conta,
+     * Permite ao usuário sacar uma quantia especificada de dinheiro da conta corrente,
      * atualizando o saldo e registrando a transação.
-     * 
-     * @param valor O parâmetro "valor" representa a quantia de dinheiro que o usuário deseja sacar de sua conta.
+     *
+     * @param valor A quantia de dinheiro a ser sacada.
+     * @throws Exception Lançada se houver um erro durante o saque.
      */
     public void sacar(double valor) throws Exception {
 
@@ -69,11 +75,12 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
     }
 
     /**
-     * A função "transferir" transfere uma quantia especificada de dinheiro de uma conta para outra,
+     * Transfere uma quantia especificada de dinheiro da conta corrente para outra conta,
      * atualizando os saldos e registrando a transação.
-     * 
+     *
      * @param valor A quantia de dinheiro a ser transferida.
-     * @param conta O parâmetro "conta" é um objeto do tipo "Conta", que representa uma conta bancária.
+     * @param conta A conta de destino para a transferência.
+     * @throws Exception Lançada se houver um erro durante a transferência.
      */
     public void transferir(Double valor, Conta conta) throws Exception {
 
@@ -85,19 +92,18 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
         this.saldo -= valor;
         conta.depositar(valor);
 
-            cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
+        cliente.addTransacao(new Transacao(TransacaoCategoria.TRANSFERENCIA, valor, this, conta, LocalDateTime.now()));
     }
 
     /**
-     * A função "atualizarSaldo" aplica uma taxa mensal ao saldo.
+     * Atualiza o saldo da conta corrente aplicando a taxa mensal, se necessário.
      */
     public void atualizarSaldo() {
         aplicarTaxaMensal();
     }
 
     /**
-     * A função "aplicarTaxaMensal" calcula e aplica um desconto mensal ao saldo, atualiza a data do
-     * último desconto e define um limite de saque especial.
+     * Aplica a taxa mensal ao saldo, atualizando a data do último desconto e o limite de saque especial.
      */
     private void aplicarTaxaMensal() {
 
@@ -111,5 +117,4 @@ public final class ContaCorrente extends Conta implements OperacoesConta {
             setSaqueEspecial(200.00);
         }
     }
-
 }
